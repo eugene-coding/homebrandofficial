@@ -30,6 +30,12 @@ public class WearPage extends LoadableComponent<WearPage> {
     @FindBy(className = "t-store__card")
     private List<WebElement> products;
 
+    @FindBy(css = ".t-store__card .js-product-name")
+    private WebElement productName;
+
+    @FindBy(css = ".t-store__card .js-product-price")
+    private WebElement productPrice;
+
     public WearPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -51,8 +57,14 @@ public class WearPage extends LoadableComponent<WearPage> {
         return products.size();
     }
 
-    public ProductFragment getFirstProduct() throws IndexOutOfBoundsException {
-        return new ProductFragment(products.get(0));
+    public String getProductName() {
+        return productName.getText();
+    }
+
+    public int getProductPrice() {
+        var priceWithoutWhiteSpaces = productPrice.getText().replaceAll("\\s+","");
+
+        return Integer.parseInt(priceWithoutWhiteSpaces);
     }
 
     private void clickOnMobileSearchButton() {
