@@ -18,6 +18,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class WearPage extends LoadableComponent<WearPage> {
     private final WebDriver driver;
 
+    @FindBy(className = "t-store__filter__search-mob-btn")
+    private WebElement mobileSearchButton;
+
     @FindBy(name = "query")
     private WebElement searchInput;
 
@@ -33,6 +36,10 @@ public class WearPage extends LoadableComponent<WearPage> {
     }
 
     public void search(String query) {
+        if (mobileSearchButton.isDisplayed()) {
+            clickOnMobileSearchButton();
+        }
+
         searchInput.sendKeys(query);
         searchInput.sendKeys(Keys.ENTER);
 
@@ -48,6 +55,13 @@ public class WearPage extends LoadableComponent<WearPage> {
         return new ProductFragment(products.get(0));
     }
 
+    private void clickOnMobileSearchButton() {
+        mobileSearchButton.click();
+
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOf(searchInput));
+    }
+
     @Override
     protected void load() {
         driver.get("https://homebrandofficial.ru/wear");
@@ -57,7 +71,8 @@ public class WearPage extends LoadableComponent<WearPage> {
     protected void isLoaded() throws Error {
         try {
             new WebDriverWait(driver, Duration.ofSeconds(5))
-                    .until(ExpectedConditions.visibilityOf(searchInput));
+                    .until(ExpectedConditions.or(ExpectedConditions.visibilityOf(searchInput),
+                            ExpectedConditions.visibilityOf(mobileSearchButton)));
         } catch (TimeoutException e) {
             fail();
             System.out.println(e.getMessage());
