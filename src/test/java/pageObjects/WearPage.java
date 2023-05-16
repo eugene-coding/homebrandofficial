@@ -44,6 +44,10 @@ public class WearPage extends LoadableComponent<WearPage> {
         return products.size();
     }
 
+    public ProductFragment getFirstProduct() throws IndexOutOfBoundsException {
+        return new ProductFragment(products.get(0));
+    }
+
     @Override
     protected void load() {
         driver.get("https://homebrandofficial.ru/wear");
