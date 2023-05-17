@@ -53,7 +53,7 @@ public class WearPage extends LoadableComponent<WearPage> {
                 .until(ExpectedConditions.visibilityOf(appliedFiltersPopup));
     }
 
-    public int getProductCount() {
+    public int getProductsCount() {
         return products.size();
     }
 

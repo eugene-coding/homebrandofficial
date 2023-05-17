@@ -20,7 +20,7 @@ public class LongsleeveSearchTest {
 
     @Test
     public void foundOnlyOneProduct(){
-        assertEquals(1, wearPage.getProductCount());
+        assertEquals(1, wearPage.getProductsCount());
     }
 
     @Test
