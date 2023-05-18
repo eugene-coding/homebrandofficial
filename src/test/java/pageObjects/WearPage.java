@@ -67,6 +67,11 @@ public class WearPage extends LoadableComponent<WearPage> {
         return Integer.parseInt(priceWithoutWhiteSpaces);
     }
 
+    public ProductPage clickOnFirstProduct(){
+        products.get(0).click();
+        return new ProductPage(driver);
+    }
+
     private void clickOnMobileSearchButton() {
         mobileSearchButton.click();
 
